@@ -52,7 +52,7 @@ function renderSession(sessionKey, session, week) {
 
     ${session.T2?.length ? `
       <h2 class="sh" style="margin-top:18px;">
-        <span class="dot" style="background:var(--mint)"></span>T2 — Hipertrofia
+        <span class="dot" style="background:var(--role-t2)"></span>T2 — Hipertrofia
       </h2>
       ${renderT2List(session.T2, week)}
     ` : ''}
@@ -61,14 +61,14 @@ function renderSession(sessionKey, session, week) {
 
     ${session.T3?.length ? `
       <h2 class="sh" style="margin-top:18px;">
-        <span class="dot" style="background:var(--orange)"></span>Accesorios obligatorios
+        <span class="dot" style="background:var(--role-t3)"></span>Accesorios obligatorios
       </h2>
       ${renderFixedList(session.T3)}
     ` : ''}
 
     ${session.accessories?.length ? `
       <h2 class="sh" style="margin-top:18px;">
-        <span class="dot" style="background:var(--orange)"></span>Accesorios
+        <span class="dot" style="background:var(--role-t3)"></span>Accesorios
       </h2>
       ${renderAccessoryList(session.accessories, week)}
     ` : ''}
@@ -79,7 +79,7 @@ function renderSession(sessionKey, session, week) {
 
     ${session.cardio?.length ? `
       <h2 class="sh" style="margin-top:18px;">
-        <span class="dot" style="background:var(--gold)"></span>Cardio
+        <span class="dot" style="background:var(--role-cardio)"></span>Cardio
       </h2>
       ${renderCardioList(session.cardio)}
     ` : ''}
@@ -152,7 +152,7 @@ function renderT1Table(sets) {
             <td>${s.rest ? s.rest + '"' : '—'}</td>
             <td>${s.rest > 0 ? `<button data-rest="${s.rest}" style="background:var(--accent);border:none;border-radius:8px;padding:4px 10px;color:#fff;font-size:11px;cursor:pointer;">▶</button>` : ''}</td>
           </tr>
-          ${s.note ? `<tr><td colspan="5" style="font-size:11px;color:var(--cyan);padding-bottom:6px;">${s.note}</td></tr>` : ''}
+          ${s.note ? `<tr><td colspan="5" style="font-size:11px;color:var(--role-comment);padding-bottom:6px;">${s.note}</td></tr>` : ''}
         `).join('')}
       </tbody>
     </table>
@@ -175,7 +175,7 @@ function renderT2List(exercises, week) {
           ${e.rest ? `· ${e.rest}"` : ''}
           ${restButton(e.rest)}
         </div>
-        ${comment ? `<div style="font-size:11px;color:var(--cyan);margin-top:5px;">${comment}</div>` : ''}
+        ${comment ? `<div style="font-size:11px;color:var(--role-comment);margin-top:5px;">${comment}</div>` : ''}
         ${e.note ? `<div style="font-size:12px;color:var(--note);margin-top:5px;">${e.note}</div>` : ''}
       </div>
     `;
@@ -220,7 +220,7 @@ function renderAccessoryList(accessories, week) {
 
 function renderCyclingBlock(cycling) {
   return `
-    <div style="margin:16px 0 8px;font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;">
+    <div style="margin:16px 0 8px;font-size:12px;font-weight:700;color:var(--role-cardio);text-transform:uppercase;letter-spacing:1px;">
       ${cycling.label}
     </div>
     <div style="font-size:12px;color:var(--dim);margin-bottom:10px;">${cycling.note}</div>
@@ -249,7 +249,7 @@ function renderCyclingBlock(cycling) {
 
 function renderChipperSteps(steps) {
   return steps.map(s => s.burpees ? `
-    <div class="ex-meta" style="font-size:13px;color:var(--orange);margin-top:6px;font-weight:700;">
+    <div class="ex-meta" style="font-size:13px;color:var(--role-t3);margin-top:6px;font-weight:700;">
       ${s.burpees} Burpees
     </div>
   ` : `
@@ -263,7 +263,7 @@ function renderChipperSteps(steps) {
 
 function renderChipperBlock(chipper) {
   return `
-    <div style="margin:16px 0 8px;font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;">
+    <div style="margin:16px 0 8px;font-size:12px;font-weight:700;color:var(--role-cardio);text-transform:uppercase;letter-spacing:1px;">
       ${chipper.label}
     </div>
     <div style="font-size:12px;color:var(--dim);margin-bottom:10px;">${chipper.note}</div>
@@ -296,7 +296,7 @@ function renderCardioList(items) {
 
 function renderKineBlock(bloque) {
   return `
-    <div style="margin:16px 0 8px;font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;">
+    <div style="margin:16px 0 8px;font-size:12px;font-weight:700;color:var(--role-comment);text-transform:uppercase;letter-spacing:1px;">
       ${bloque.label}
     </div>
     <div style="font-size:12px;color:var(--dim);margin-bottom:8px;">${bloque.note}</div>

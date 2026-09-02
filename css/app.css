@@ -19,6 +19,10 @@
   --accent: var(--red);
   --note:   #a33036;
   --font-display: 'Bangers', cursive;
+  --role-t2:      var(--red);
+  --role-t3:      var(--red);
+  --role-cardio:  var(--red);
+  --role-comment: var(--note);
 
   --glow-red: 4px 4px 0 rgba(0,0,0,1);
 
