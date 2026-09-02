@@ -43,7 +43,7 @@ function renderSession(sessionKey, session, week) {
     <h2 class="sh" style="margin-top:18px;">
       <span class="dot" style="background:var(--${session.color})"></span>T1 — ${t1.exercise}
     </h2>
-    ${t1.note ? `<div style="font-size:12px;color:#ddb0ff;margin-bottom:8px;">${t1.note}</div>` : ''}
+    ${t1.note ? `<div style="font-size:12px;color:var(--note);margin-bottom:8px;">${t1.note}</div>` : ''}
     ${renderT1Table(getT1Sets(sessionKey, week, i))}
   `).join('');
 
@@ -134,7 +134,7 @@ export function bindWorkout(sessionKey) {
 
 function restButton(rest) {
   return rest > 0
-    ? `<button data-rest="${rest}" style="background:var(--purple);border:none;border-radius:8px;padding:3px 10px;color:#fff;font-size:11px;cursor:pointer;margin-left:8px;">▶</button>`
+    ? `<button data-rest="${rest}" style="background:var(--accent);border:none;border-radius:8px;padding:3px 10px;color:#fff;font-size:11px;cursor:pointer;margin-left:8px;">▶</button>`
     : '';
 }
 
@@ -150,7 +150,7 @@ function renderT1Table(sets) {
             <td>${s.reps}</td>
             <td>${typeof s.kg === 'number' ? s.kg + ' kg' : s.kg}</td>
             <td>${s.rest ? s.rest + '"' : '—'}</td>
-            <td>${s.rest > 0 ? `<button data-rest="${s.rest}" style="background:var(--purple);border:none;border-radius:8px;padding:4px 10px;color:#fff;font-size:11px;cursor:pointer;">▶</button>` : ''}</td>
+            <td>${s.rest > 0 ? `<button data-rest="${s.rest}" style="background:var(--accent);border:none;border-radius:8px;padding:4px 10px;color:#fff;font-size:11px;cursor:pointer;">▶</button>` : ''}</td>
           </tr>
           ${s.note ? `<tr><td colspan="5" style="font-size:11px;color:var(--cyan);padding-bottom:6px;">${s.note}</td></tr>` : ''}
         `).join('')}
@@ -176,7 +176,7 @@ function renderT2List(exercises, week) {
           ${restButton(e.rest)}
         </div>
         ${comment ? `<div style="font-size:11px;color:var(--cyan);margin-top:5px;">${comment}</div>` : ''}
-        ${e.note ? `<div style="font-size:12px;color:#ddb0ff;margin-top:5px;">${e.note}</div>` : ''}
+        ${e.note ? `<div style="font-size:12px;color:var(--note);margin-top:5px;">${e.note}</div>` : ''}
       </div>
     `;
   }).join('');
@@ -194,7 +194,7 @@ function renderFixedList(exercises) {
         ${e.rest ? `· ${e.rest}"` : ''}
         ${restButton(e.rest)}
       </div>
-      ${e.note ? `<div style="font-size:12px;color:#ddb0ff;margin-top:5px;">${e.note}</div>` : ''}
+      ${e.note ? `<div style="font-size:12px;color:var(--note);margin-top:5px;">${e.note}</div>` : ''}
     </div>
   `).join('');
 }
@@ -212,7 +212,7 @@ function renderAccessoryList(accessories, week) {
           ${a.rest ? `· ${a.rest}"` : ''}
           ${restButton(a.rest)}
         </div>
-        ${a.note ? `<div style="font-size:12px;color:#ddb0ff;margin-top:5px;">${a.note}</div>` : ''}
+        ${a.note ? `<div style="font-size:12px;color:var(--note);margin-top:5px;">${a.note}</div>` : ''}
       </div>
     `;
   }).join('');
@@ -239,7 +239,7 @@ function renderCyclingBlock(cycling) {
               <b style="color:var(--text)">${m.reps}${m.repUnit || ''} ${m.name}</b>
               ${m.kg ? ` @ ${m.kg} kg` : ''}
             </div>
-            ${m.note ? `<div style="font-size:11px;color:#ddb0ff;margin:2px 0 4px;">${m.note}</div>` : ''}
+            ${m.note ? `<div style="font-size:11px;color:var(--note);margin:2px 0 4px;">${m.note}</div>` : ''}
           `).join('')}
         </div>
       </div>
@@ -257,7 +257,7 @@ function renderChipperSteps(steps) {
       <b style="color:var(--text)">${s.reps}${s.repUnit || ''} ${s.name}</b>
       ${s.kg ? ` @ ${s.kg} kg` : ''}
     </div>
-    ${s.note ? `<div style="font-size:11px;color:#ddb0ff;margin:2px 0 4px;">${s.note}</div>` : ''}
+    ${s.note ? `<div style="font-size:11px;color:var(--note);margin:2px 0 4px;">${s.note}</div>` : ''}
   `).join('');
 }
 
@@ -276,7 +276,7 @@ function renderChipperBlock(chipper) {
     ${chipper.options.map((o, i) => `
       <div class="chipper-panel" data-chipper-panel="${i}" style="${i === 0 ? '' : 'display:none;'}">
         <div class="session-card">
-          ${o.note ? `<div style="font-size:11px;color:#ddb0ff;margin-bottom:6px;">${o.note}</div>` : ''}
+          ${o.note ? `<div style="font-size:11px;color:var(--note);margin-bottom:6px;">${o.note}</div>` : ''}
           ${renderChipperSteps(o.steps)}
         </div>
       </div>
@@ -289,7 +289,7 @@ function renderCardioList(items) {
     <div class="session-card">
       <div class="session-card__title">${c.name}</div>
       <div class="ex-meta" style="font-size:13px;color:var(--dim);"><b style="color:var(--text)">${c.duration}</b></div>
-      ${c.note ? `<div style="font-size:12px;color:#ddb0ff;margin-top:5px;">${c.note}</div>` : ''}
+      ${c.note ? `<div style="font-size:12px;color:var(--note);margin-top:5px;">${c.note}</div>` : ''}
     </div>
   `).join('');
 }
@@ -307,7 +307,7 @@ function renderKineBlock(bloque) {
           <b style="color:var(--text)">${e.load}</b> · ${e.setsReps}
           ${restButton(e.rest)}
         </div>
-        ${e.note ? `<div style="font-size:12px;color:#ddb0ff;margin-top:5px;">${e.note}</div>` : ''}
+        ${e.note ? `<div style="font-size:12px;color:var(--note);margin-top:5px;">${e.note}</div>` : ''}
       </div>
     `).join('')}
   `;

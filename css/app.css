@@ -1,0 +1,330 @@
+/* css/app.css — Adonain PWA — Manga blanco y negro, acento rojo */
+
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=JetBrains+Mono:wght@300;400;700&display=swap');
+
+:root {
+  --bg:       #f2f0ec;
+  --card:     #ffffff;
+  --card2:    #ececec;
+  --border:   #141414;
+  --text:     #141414;
+  --dim:      #6b6b6b;
+
+  /* Único color de sesión usado por workout-data.js (session.color: 'red') */
+  --red:      #d81e2c;
+
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Motor genérico (js/views/workout.js) */
+  --accent: var(--red);
+  --note:   #a33036;
+  --font-display: 'Bangers', cursive;
+
+  --glow-red: 4px 4px 0 rgba(0,0,0,1);
+
+  /* nutrical compat */
+  --surface:   #ffffff;
+  --surface-2: #ececec;
+  --surface-3: #e2e2e2;
+  --muted:     #6b6b6b;
+  --muted-2:   #9a9a9a;
+  --border-2:  #141414;
+}
+
+/* ── Global font ── */
+body {
+  font-family: 'Comic Neue', 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding-bottom: calc(64px + var(--safe-bottom));
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .brand {
+  font-family: 'Bangers', cursive !important;
+  letter-spacing: .04em;
+  filter: grayscale(1);
+}
+
+/* ── Screentone (halftone dots) background ── */
+#app::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: radial-gradient(rgba(20,20,20,.12) 1px, transparent 1.2px);
+  background-size: 6px 6px;
+  pointer-events: none; z-index: 0;
+}
+#app > * { position: relative; z-index: 1; }
+
+/* ── Espiral Uzumaki — watermark de fondo, tipo Junji Ito ── */
+body::after {
+  content: '🌀';
+  position: fixed;
+  bottom: -8vw; right: -8vw;
+  font-size: 55vw;
+  line-height: 1;
+  filter: grayscale(1) brightness(0);
+  opacity: .035;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Cursor blink ── */
+@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+.cursor::after { content:'█'; animation: blink 1s step-end infinite; color: var(--red); margin-left:2px; }
+
+/* ── nutrical btn-primary fix ── */
+.btn-primary {
+  background: var(--red) !important;
+  color: #fff !important;
+  font-family: 'Bangers', cursive !important;
+  font-weight: 400 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+  border: 2px solid var(--border) !important;
+  box-shadow: var(--glow-red) !important;
+}
+.btn-primary:hover { box-shadow: 6px 6px 0 rgba(0,0,0,1) !important; }
+
+/* ── Adonain buttons — todos en acento único (rojo) o gris apagado ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 11px 24px;
+  font-family: 'Bangers', cursive;
+  font-size: 14px; font-weight: 400; letter-spacing: .06em;
+  text-transform: uppercase; cursor: pointer;
+  border: 2px solid; transition: box-shadow .15s, background .15s, transform .1s;
+  -webkit-tap-highlight-color: transparent; text-decoration: none;
+  background: var(--card); border-radius: 3px;
+}
+.btn:active { transform: scale(.97); }
+.btn-block { width: 100%; }
+
+.btn-cyan, .btn-pink, .btn-mint, .btn-gold { border-color: var(--red); color: var(--red); }
+.btn-dim  { border-color: var(--border); color: var(--dim); }
+
+.btn-cyan:hover, .btn-pink:hover, .btn-mint:hover, .btn-gold:hover {
+  background: rgba(216,30,44,.08); box-shadow: var(--glow-red);
+}
+.btn-dim:hover  { border-color: var(--text); color: var(--text); }
+
+/* ── Card estilo viñeta de cómic ── */
+.session-card {
+  background: var(--card);
+  border: 2.5px solid var(--border);
+  border-radius: 4px;
+  position: relative;
+  padding: 14px; margin-bottom: 12px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,.85);
+  transition: box-shadow .15s, transform .1s;
+}
+.session-card::before, .session-card::after { content: none; }
+
+.session-card__title {
+  font-family: 'Bangers', cursive;
+  font-size: 16px; font-weight: 400; color: var(--text);
+  margin-bottom: 10px; letter-spacing: .03em;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.session-card__title::before { content: '🌀 '; filter: grayscale(1); }
+
+/* ── Set table ── */
+.set-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 8px 0; }
+.set-table th {
+  text-align: left; padding: 6px 5px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--dim); border-bottom: 2px solid var(--border);
+  font-family: 'Bangers', cursive;
+}
+.set-table td { padding: 7px 5px; border-bottom: 1px solid rgba(20,20,20,.1); color: var(--text); }
+.set-table tr:last-child td { border-bottom: none; }
+.set-row--work td  { color: var(--text); font-weight: 700; }
+.set-row--pr td    { color: var(--red); font-weight: 800; font-size: 13px; }
+.set-row--done td  { opacity: .4; text-decoration: line-through; }
+
+/* ── Progress bar ── */
+.progress-bar { height: 8px; background: var(--card2); overflow: hidden; margin: 6px 0; border: 1.5px solid var(--border); border-radius: 3px; }
+.progress-bar__fill {
+  height: 100%;
+  background: var(--red);
+  transition: width .4s ease;
+}
+.progress-bar__fill--success { background: #141414; }
+
+/* ── Rest timer overlay ── */
+.timer-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(242,240,236,.98);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 20px;
+}
+.timer-overlay::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(20,20,20,.1) 1px, transparent 1.2px);
+  background-size: 6px 6px;
+}
+.timer-overlay__time {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(64px, 18vw, 88px);
+  font-weight: 400; letter-spacing: .03em;
+  color: var(--red);
+  position: relative;
+}
+.timer-overlay__label {
+  font-size: 11px; color: var(--dim);
+  letter-spacing: .3em; text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+}
+.timer-overlay__skip {
+  margin-top: 20px; padding: 12px 36px;
+  border: 2px solid var(--border);
+  background: var(--card); color: var(--dim);
+  font-family: 'Bangers', cursive;
+  font-size: 13px; font-weight: 400; letter-spacing: .06em; text-transform: uppercase;
+  cursor: pointer; transition: border-color .15s, color .15s; border-radius: 3px;
+}
+.timer-overlay__skip:hover { border-color: var(--red); color: var(--red); }
+
+/* ── Bottom navigation ── */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  display: flex;
+  background: var(--card);
+  border-top: 2.5px solid var(--border);
+  box-shadow: 0 -3px 0 rgba(0,0,0,.06);
+  padding-bottom: var(--safe-bottom); z-index: 200;
+}
+.bottom-nav__item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  padding: 10px 4px 8px;
+  font-family: 'Bangers', cursive;
+  font-size: 10px; font-weight: 400; letter-spacing: .05em;
+  color: var(--dim); text-decoration: none;
+  border: none; background: none; cursor: pointer;
+  text-transform: uppercase; transition: color .15s;
+}
+.bottom-nav__item .icon { font-size: 18px; margin-bottom: 3px; }
+.bottom-nav__item--active { color: var(--red); }
+
+/* ── Badges ── */
+.badge-kine {
+  display: inline-block; padding: 3px 10px;
+  background: rgba(20,20,20,.05); border: 1.5px solid var(--border);
+  color: var(--text); font-size: 10px; font-weight: 700; letter-spacing: .08em;
+  font-family: 'Bangers', cursive;
+  border-radius: 3px;
+}
+.pill-obligatorio {
+  display: inline-block; padding: 2px 8px;
+  background: rgba(216,30,44,.1); border: 1.5px solid var(--red);
+  color: var(--red); font-size: 10px; font-weight: 700; letter-spacing: .03em;
+  border-radius: 3px;
+}
+.pill-new {
+  background: var(--red); color: #fff;
+  font-size: 10px; font-weight: 400; padding: 2px 7px;
+  font-family: 'Bangers', cursive; letter-spacing: .03em;
+  border-radius: 3px;
+}
+
+/* ── Phase banner — todas las variantes al único acento rojo ── */
+.phase-banner {
+  padding: 10px 14px;
+  font-family: 'Bangers', cursive;
+  font-size: 13px; font-weight: 400; letter-spacing: .05em;
+  margin: 16px 0 10px;
+  position: relative;
+  border-radius: 3px;
+}
+.phase-banner::before, .phase-banner::after { content: none; }
+
+.phase-banner--pink, .phase-banner--mint, .phase-banner--gold,
+.phase-banner--cyan, .phase-banner--purple, .phase-banner--orange,
+.phase-banner--red {
+  background: rgba(216,30,44,.06); border: 2px solid var(--red); color: var(--red);
+}
+
+/* ── Tip box ── */
+.tip-box {
+  background: var(--card); border: 2px solid var(--border);
+  box-shadow: 3px 3px 0 rgba(0,0,0,.7);
+  padding: 13px 14px; margin: 10px 0; position: relative; border-radius: 3px;
+}
+.tip-box__title { font-family: 'Bangers', cursive; font-size: 13px; font-weight: 400; color: var(--red); margin-bottom: 6px; letter-spacing: .04em; }
+.tip-box ul { padding-left: 16px; }
+.tip-box li { font-size: 12px; color: var(--text); margin-bottom: 5px; line-height: 1.5; }
+
+/* ── Advertencia (rodilla/pie) ── */
+.eva-warning {
+  background: rgba(216,30,44,.06); border: 2px solid var(--red);
+  padding: 10px 14px; font-size: 12px; font-weight: 700;
+  color: var(--red); margin-bottom: 12px; letter-spacing: .02em; border-radius: 3px;
+}
+
+/* ── Section divider — línea punteada con espiral al centro ── */
+.section-divider {
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--border) 0 6px, transparent 6px 10px);
+  opacity: .6; margin: 16px 0;
+  position: relative;
+}
+.section-divider::after {
+  content: '🌀';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg);
+  padding: 0 6px;
+  font-size: 13px;
+  filter: grayscale(1);
+}
+
+/* ── nutrical topnav override ── */
+#topnav {
+  background: var(--card) !important;
+  border-bottom: 2.5px solid var(--border) !important;
+}
+
+/* ── nutrical results-block override ── */
+.results-block {
+  background: var(--card) !important;
+  border: 2px solid var(--border) !important;
+  border-radius: 4px !important;
+  box-shadow: 3px 3px 0 rgba(0,0,0,.7) !important;
+}
+.results-block h3 { color: var(--red) !important; }
+
+/* ── nutrical card override ── */
+.card {
+  background: var(--card) !important;
+  border: 2px solid var(--border) !important;
+  border-radius: 4px !important;
+  box-shadow: 3px 3px 0 rgba(0,0,0,.7) !important;
+  position: relative;
+}
+.card::before, .card::after { content: none; }
+
+/* ── nutrical input override ── */
+input, select, textarea {
+  background: var(--card2) !important;
+  border: 2px solid var(--border) !important;
+  color: var(--text) !important;
+  font-family: 'Comic Neue', sans-serif !important;
+  border-radius: 3px !important;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 3px rgba(216,30,44,.15) !important;
+  outline: none !important;
+}
+
+/* ── Layout ── */
+body { padding-bottom: calc(64px + var(--safe-bottom)); }
+
+.week-nav-btn {
+  background: var(--card); border: 2px solid var(--border); color: var(--dim);
+  border-radius: 4px; width: 26px; height: 26px; font-size: 16px; line-height: 1;
+  cursor: pointer; vertical-align: middle;
+}
+.week-nav-btn:disabled { opacity: .3; cursor: default; }
+.week-nav-btn:not(:disabled):hover { border-color: var(--red); color: var(--red); }

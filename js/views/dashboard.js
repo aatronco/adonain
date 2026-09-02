@@ -1,5 +1,5 @@
 // js/views/dashboard.js
-import { SESSIONS, PROGRAM_WEEKS } from '../workout-data.js';
+import { SESSIONS, PROGRAM_WEEKS, APP_NAME, APP_ICON, APP_TAGLINE } from '../workout-data.js';
 import { clampWeek } from '../load-calculator.js';
 
 export function renderDashboard(weekParam) {
@@ -8,18 +8,18 @@ export function renderDashboard(weekParam) {
   return `
     <div style="padding:20px 14px;">
       <div class="hero" style="border-radius:14px;margin-bottom:16px;">
-        <div class="hero-eyebrow">▸ BRUTE ▸</div>
-        <h1>🏋️ Semana ${week}/${PROGRAM_WEEKS}</h1>
-        <p class="hero-sub">6 días agrupados por patrón de movimiento</p>
+        <div class="hero-eyebrow">▸ ${APP_NAME.toUpperCase()} ▸</div>
+        <h1>${APP_ICON} Semana ${week}/${PROGRAM_WEEKS}</h1>
+        <p class="hero-sub">${APP_TAGLINE}</p>
       </div>
 
       <div style="display:flex;gap:6px;margin-bottom:18px;">
         ${Array.from({ length: PROGRAM_WEEKS }, (_, i) => i + 1).map(w => `
           <a href="#/dashboard/${w}"
             style="flex:1;text-align:center;padding:10px 0;border-radius:10px;
-                   font-weight:800;text-decoration:none;font-family:'Orbitron',sans-serif;
+                   font-weight:800;text-decoration:none;font-family:var(--font-display);
                    ${w === week
-                     ? 'background:var(--purple);color:#fff;'
+                     ? 'background:var(--accent);color:#fff;'
                      : 'background:var(--card);color:var(--dim);border:1px solid var(--border);'}">
             ${w}
           </a>
